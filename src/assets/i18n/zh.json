@@ -1,5 +1,7 @@
 {
     "app": {
+        "bookshelves":"书架",
+        "bookshop":"书城",
         "articles": "动态",
         "welcome": "欢迎你",
         "logout": "退出",

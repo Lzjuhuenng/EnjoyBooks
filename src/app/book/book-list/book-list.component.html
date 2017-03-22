@@ -1,0 +1,9 @@
+<div class="post-item-container" *ngFor="let book of bookList; let i = index">
+        
+        <div class="col-lg-2"> 
+            <a [routerLink]="['/bookshop/bookdetail',1]" class="thumbnail">
+                <img src="{{book.imgURL}}" alt="通用的占位符缩略图">
+            </a>
+        </div >
+</div>
+     

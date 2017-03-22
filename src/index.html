@@ -15,6 +15,24 @@
     <link href="assets/bootstrap-v3.3.7/bootstrap.min.css" rel="stylesheet">
     <link href="assets/font-awesome.min.css" rel="stylesheet">
     <link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/zip.min.js"></script>
+     <script>
+            "use strict";
+
+            document.onreadystatechange = function () {
+              if (document.readyState == "complete") {
+                EPUBJS.filePath = "assetsjs/libs/";
+                EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
+                // fileStorage.filePath = EPUBJS.filePath;
+
+                window.reader = ePubReader("assets/book/6490.epub");
+              }
+            };
+
+        </script>
+        <script src="assets/js/epub.js"></script>
+        <script src="assets/js/reader.min.js"></script>
 </head>
 
 <body>

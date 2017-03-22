@@ -2,23 +2,23 @@
 <div class="navbar navbar-fixed-top main-nav" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button #button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse" (click)="toggle(button)">
+            <button #button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".n avbar-responsive-collapse" (click)="toggle(button)">
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a routerLink="posts" class="navbar-brand navbar-brand-my">
-                NiceFish
+                EnjoyBook
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-responsive-collapse" aria-expanded="false">
             <ul class="nav navbar-nav">
                 <li routerLinkActive="active" class="dropdown">
-                    <a routerLink="posts">{{'app.articles' | translate}}</a>
+                    <a routerLink="bookshelves">{{'app.bookshelves' | translate}}</a>
                 </li>
                 <li class="dropdown">
-                    <a routerLink="echart">图表</a>
+                    <a routerLink="bookshop">{{'app.bookshop' | translate}}</a>
                 </li>
                 <li class="dropdown">
                     <a routerLink="jquery">集成jQuery</a>
@@ -42,9 +42,9 @@
                 <li routerLinkActive="active">
                     <a routerLink="user">{{'app.welcome' | translate}}：{{currentUser?.username}}</a>
                 </li>
-                <li routerLinkActive="active">
+                <!--<li routerLinkActive="active">
                     <a routerLink="manage">{{'app.console' | translate}}</a>
-                </li>
+                </li>-->
                 <li>
                     <a href="javascript:void(0);" (click)="doLogout()">{{'app.logout' | translate}}</a>
                 </li>
@@ -55,13 +55,14 @@
 <!-- 主体内容区域 -->
 <div class="container main-container">
     <router-outlet></router-outlet>
+    <!--<app-bookshelves></app-bookshelves>-->
 </div>
 <!-- 底部区域 -->
 <div class="footer bs-footer">
     <div class="container">
         <div class="row">
             <p>
-                Powered by <a href="http://git.oschina.net/mumu-osc/NiceFish" target="_blank">NiceFish</a>
+                Powered by <a href="#" >Lzjuhuenng</a>
             </p>
         </div>
     </div>

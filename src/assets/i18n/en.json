@@ -1,5 +1,7 @@
 {
     "app":{
+        "bookshelves":"Book Shelves",
+        "bookshop":"Book Shop",
         "welcome":"Welcome",
         "logout":"Logout",
         "login":"Login",
