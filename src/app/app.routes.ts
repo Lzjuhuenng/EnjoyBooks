@@ -12,16 +12,16 @@ import { BookReadComponent } from './book/book-read/book-read.component';
 
 export const appRoutes=[
 	{ 
-		path: 'bookshelves', 
+		path: 'bookshelves/:page', 
 		component:BookshelvesComponent
 	},
 	{ 
-		path: 'bookshop', 
+		path: 'bookshop/:page', 
 		loadChildren:'./book/book.module#BookModule'
 	},
 	{
 		path:'',
-		redirectTo:'posts',
+		redirectTo:'bookshelves/:page',
 		pathMatch:'full'
 	},{
 		path:"echart",

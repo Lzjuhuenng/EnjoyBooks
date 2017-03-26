@@ -28,7 +28,7 @@ export class BookdetailComponent implements OnInit {
 
    public getBook(id:number){
     this.bookDetailService
-        .getPost(id)
+        .getBook(id)
         .subscribe(
           data => this.book = data,
           error => console.error(error)

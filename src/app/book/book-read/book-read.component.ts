@@ -15,7 +15,9 @@ declare var EPUBJS : any ,ePubReader:any;
   styleUrls: ['./book-read.component.scss']
 })
 export class BookReadComponent implements OnInit {
-	public reader :any;
+	
+  public reader :any;
+  public book : Book;
 
   constructor( 
     public router: Router,
@@ -25,19 +27,33 @@ export class BookReadComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-			this.onReady();	
-  		
-	
-	
+  this.activeRoute.params.subscribe(
+     params =>{
+       this.onReady(params["bookId"]);
+      }
+    );
   	}
 
-	public onReady (book = "assets/book/6490.epub"){
+  public onReady(id:number){
+    this.bookReadService
+        .getBook(id)
+        .subscribe(
+          data => {
+            this.book = data,console.log(this.book)
+            this.openBook(this.book);
+        },
+          error => console.error(error)
+        );
+        
+  }
+
+	public openBook (book : Book){
 	
   	EPUBJS.filePath = "js/libs/";
     EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
     // fileStorage.filePath = EPUBJS.filePath;
 		console.log(EPUBJS);
-    this.reader = ePubReader(book);
+    this.reader = ePubReader(book.bookURL);
            
 	}	
 	

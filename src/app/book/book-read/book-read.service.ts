@@ -9,41 +9,15 @@ import { Book } from './../model/book-model';
 
 @Injectable()
 export class BookReadService {
-  public bookListURL = 'src/mock-data/booklist-mock.json';
-  public bookListSearchURL = 'src/mock-data/postlist-search-mock.json';
+  public BookDetailURL = "src/mock-data/book-detail-mock.json";
 
   constructor(public http:Http) { }
   
+   public getBook(id:number):Observable<Book>{
+        return 	this.http
+        			.get(this.BookDetailURL)
+                	.map((res: Response) => res.json());
+    }
 
-  public getPostList(searchText: string,page:number=1):Observable<Book[]>{
-    let url = this.bookListURL;
-    let params = new URLSearchParams();
-    if (searchText) {
-			params.set('searchText',searchText);
-      url = this.bookListSearchURL;
-      console.log(`searchText=${searchText}`);
-		}
-    params.set('page',String(page));
-    
-    return this.http
-               .get(url,{search:params})
-               .map((res:Response) => {
-                   let result=res.json();
-                   console.log(result);
-                   return result;
-               })
-               .catch((error:any) => Observable.throw(error || 'Server error'));
-  }
-
-  public getPostNumber():number{
-    return 0;
-  }
-
-  public addPost(user:any){
-
-  }
-
-  public search() {
-    
-  }
+ 
 }

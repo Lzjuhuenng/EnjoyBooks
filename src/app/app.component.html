@@ -8,27 +8,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a routerLink="bookshelves" class="navbar-brand navbar-brand-my">
+            <a routerLink="bookshelves/1" class="navbar-brand navbar-brand-my">
                 EnjoyBooks
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-responsive-collapse" aria-expanded="false">
             <ul class="nav navbar-nav">
                 <li routerLinkActive="active" class="dropdown">
-                    <a routerLink="bookshelves">{{'app.bookshelves' | translate}}</a>
+                    <a routerLink="bookshelves/1">{{'app.bookshelves' | translate}}</a>
                 </li>
                 <li class="dropdown">
-                    <a routerLink="bookshop">{{'app.bookshop' | translate}}</a>
+                    <a routerLink="bookshop/1">{{'app.bookshop' | translate}}</a>
                 </li>
-                <li class="dropdown">
+                <!--<li class="dropdown">
                     <a routerLink="jquery">集成jQuery</a>
-                </li>
-                <li class="dropdown">
+                </li>-->
+                <!--<li class="dropdown">
                     <a href="http://git.oschina.net/mumu-osc/NiceFish" data-toggle="dropdown" class="dropdown-toggle" target="_blank">NiceFish</a>
-                </li>
-                <li class="dropdown">
+                </li>-->
+                <!--<li class="dropdown">
                     <a href="http://git.oschina.net/zt_zhong/CodeBe" data-toggle="dropdown" class="dropdown-toggle" target="_blank">CodeBe</a>
-                </li>
+                </li>-->
             </ul>
             <ul *ngIf="!currentUser?.username" class="nav navbar-nav navbar-right">
                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">

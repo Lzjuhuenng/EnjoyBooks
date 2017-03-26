@@ -9,14 +9,14 @@ import { Book } from '../model/book-model';
 
 @Injectable()
 export class BookDetailService {
-    public postDetailURL = "src/mock-data/book-detail-mock.json";
+    public BookDetailURL = "src/mock-data/book-detail-mock.json";
 
     constructor(public http: Http) { 
     }
 
-    public getPost(id:number):Observable<Book>{
+    public getBook(id:number):Observable<Book>{
         return 	this.http
-        			.get(this.postDetailURL)
+        			.get(this.BookDetailURL)
                 	.map((res: Response) => res.json());
     }
 }
