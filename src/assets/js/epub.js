@@ -2912,6 +2912,8 @@ EPUBJS.Book.prototype.createHiddenRender = function(renderer, _width, _height) {
 	hiddenEl.style.height = height +"px"; //"0";
 	hiddenContainer.appendChild(hiddenEl);
 
+	console.log(hiddenEl+"11111");
+
 	renderer.initialize(hiddenEl, this.settings.width, this.settings.height);
 	return hiddenContainer;
 };
@@ -7065,7 +7067,7 @@ EPUBJS.Renderer.prototype.Events = [
 EPUBJS.Renderer.prototype.initialize = function(element, width, height){
 	this.container = element;
 	this.element = this.render.create();
-
+	console.log(element);
 	this.initWidth = width;
 	this.initHeight = height;
 

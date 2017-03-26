@@ -55,7 +55,7 @@ export class BookListComponent implements OnInit {
 		let offset = (this.currentPage-1)*this.itemsPerPage;
 		let end = (this.currentPage)*this.itemsPerPage;
 		
-		return this.bookListService.getPostList(searchText,page).subscribe(
+		return this.bookListService.getBookList(searchText,page).subscribe(
 			res=>{
 				this.totalItems = res["total"];
 				//TODO.正式环境中，需要去掉slice

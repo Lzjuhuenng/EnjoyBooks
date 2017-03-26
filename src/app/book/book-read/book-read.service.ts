@@ -8,14 +8,14 @@ import 'rxjs/add/operator/catch';
 import { Book } from './../model/book-model';
 
 @Injectable()
-export class BookListService {
+export class BookReadService {
   public bookListURL = 'src/mock-data/booklist-mock.json';
   public bookListSearchURL = 'src/mock-data/postlist-search-mock.json';
 
   constructor(public http:Http) { }
   
 
-  public getBookList(searchText: string,page:number=1):Observable<Book[]>{
+  public getPostList(searchText: string,page:number=1):Observable<Book[]>{
     let url = this.bookListURL;
     let params = new URLSearchParams();
     if (searchText) {
