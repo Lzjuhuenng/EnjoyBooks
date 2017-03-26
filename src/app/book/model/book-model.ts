@@ -7,4 +7,5 @@ export class Book {
   bookDate: Date
   bookBrief:string
   imgURL:string
+  bookURL:string
 }

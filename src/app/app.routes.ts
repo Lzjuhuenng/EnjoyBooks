@@ -13,7 +13,7 @@ import { BookReadComponent } from './book/book-read/book-read.component';
 export const appRoutes=[
 	{ 
 		path: 'bookshelves', 
-		component:BookReadComponent
+		component:BookshelvesComponent
 	},
 	{ 
 		path: 'bookshop', 

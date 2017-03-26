@@ -16,6 +16,7 @@ import { RowEndPipe } from '../utils/isRowEnd-pipe';
 import { BookListService } from './book-list/book-list.serveice';
 import { BookDetailService } from './bookdetails/book-detail.service';
 import { BookReadService } from './book-read/book-read.service';
+import { BookshelvesService } from './bookshelves/bookshelves.service';
 
 import { BookRoutes } from './book.routes';
 
@@ -40,7 +41,8 @@ import { BookRoutes } from './book.routes';
     providers: [
         BookListService,
         BookDetailService,
-        BookReadService
+        BookReadService,
+        BookshelvesService
     ]
 })
 export class BookModule { }
