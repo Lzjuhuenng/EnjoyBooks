@@ -9,7 +9,8 @@ export class AuthGuard implements CanActivate {
   		public userLoginService: UserLoginService) {
 
   	}
-  
+	  
+	  //路由守卫
   	canActivate(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): boolean {
   		//这里可以调用真实的服务进行验证
   		// 	this.userLoginService.currentUser
@@ -20,5 +21,5 @@ export class AuthGuard implements CanActivate {
 			 // 	error => console.error(error)
 			 // );
     	return true;
-  	}
+  	} 
 }
