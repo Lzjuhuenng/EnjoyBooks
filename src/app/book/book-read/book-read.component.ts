@@ -39,7 +39,8 @@ export class BookReadComponent implements OnInit {
         .getBook(id)
         .subscribe(
           data => {
-            this.book = data,console.log(this.book)
+            this.book = data,
+            console.log(this.book)
             this.openBook(this.book);
         },
           error => console.error(error)

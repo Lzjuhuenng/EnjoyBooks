@@ -18,6 +18,4 @@ export class BookReadService {
         			.get(this.BookDetailURL)
                 	.map((res: Response) => res.json());
     }
-
- 
 }
