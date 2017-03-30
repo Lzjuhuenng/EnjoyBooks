@@ -13,7 +13,7 @@ import { BookdetailComponent } from './bookdetails/book-detail.component';
 import { RowStartPipe } from '../utils/isRowStart-pipe';
 import { RowEndPipe } from '../utils/isRowEnd-pipe';
 
-import { BookListService } from './book-shop/book-list.serveice';
+import { BookShopService } from './book-shop/book-shop.serveice';
 import { BookDetailService } from './bookdetails/book-detail.service';
 import { BookReadService } from './book-read/book-read.service';
 import { BookshelvesService } from './bookshelves/bookshelves.service';
@@ -38,7 +38,7 @@ import { BookRoutes } from './book.routes';
         RowEndPipe
     ],
     providers: [
-        BookListService,
+        BookShopService,
         BookDetailService,
         BookReadService,
         BookshelvesService

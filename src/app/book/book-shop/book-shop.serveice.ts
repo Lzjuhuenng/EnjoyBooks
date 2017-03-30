@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import { Book } from './../model/book-model';
 
 @Injectable()
-export class BookListService {
+export class BookShopService {
   public bookListURL = 'src/mock-data/booklist-mock.json';
   public bookListSearchURL = 'src/mock-data/postlist-search-mock.json';
 

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { Book } from './../model/book-model';
 
 
-import { BookListService } from './book-list.serveice';
+import { BookShopService } from './book-shop.serveice';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class BookShopComponent implements OnInit {
     public router: Router,
     public activeRoute: ActivatedRoute,
 		//注入的服务要时全局单例的
-    public bookListService:BookListService
+    public bookListService:BookShopService
 	) { }
 
 	ngOnInit() {
