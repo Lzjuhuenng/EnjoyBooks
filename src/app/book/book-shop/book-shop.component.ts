@@ -11,11 +11,11 @@ import { BookListService } from './book-list.serveice';
 
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss']
+  selector: 'app-book-shop',
+  templateUrl: './book-shop.component.html',
+  styleUrls: ['./book-shop.component.scss']
 })
-export class BookListComponent implements OnInit {
+export class BookShopComponent implements OnInit {
   public maxSize:number = 24;
 	public itemsPerPage:number=24;
 	public totalItems:number;

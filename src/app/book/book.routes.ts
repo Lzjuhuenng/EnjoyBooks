@@ -1,10 +1,10 @@
 import { RouterModule } from '@angular/router';
 
 
-import { BookListComponent } from './book-list/book-list.component';
+import { BookShopComponent } from './book-shop/book-shop.component';
 
 import { BookdetailComponent } from './bookdetails/book-detail.component';
-import { BookshopComponent } from './bookshop/bookshop.component';
+
 import { BookshelvesComponent } from './bookshelves/bookshelves.component';
 import { BookReadComponent } from './book-read/book-read.component';
 
@@ -16,7 +16,7 @@ export const BookRoutes=[
 		pathMatch:'full'
 	},{
 		path:'bookshop/:page',
-		component:BookListComponent
+		component:BookShopComponent
 	},
 	{
 		path:'bookread/:bookId',

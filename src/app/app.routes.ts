@@ -7,7 +7,6 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
 import { ChartComponent } from './chart/chart.component';
 import { UseJqueryComponent } from './use-jquery/use-jquery.component';
 import { BookshelvesComponent } from './book/bookshelves/bookshelves.component';
-import { BookshopComponent } from './book/bookshop/bookshop.component';
 import { BookReadComponent } from './book/book-read/book-read.component';
 
 export const appRoutes=[
