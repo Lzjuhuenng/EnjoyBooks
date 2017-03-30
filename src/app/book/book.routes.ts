@@ -1,7 +1,7 @@
 import { RouterModule } from '@angular/router';
 
 
-import { BookListComponent } from './bookshop/book-list/book-list.component';
+import { BookListComponent } from './book-list/book-list.component';
 
 import { BookdetailComponent } from './bookdetails/book-detail.component';
 import { BookshopComponent } from './bookshop/bookshop.component';
