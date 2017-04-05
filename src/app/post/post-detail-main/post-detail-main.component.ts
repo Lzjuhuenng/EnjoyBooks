@@ -24,7 +24,7 @@ export class PostDetailMainComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.subscription=this.userLoginService.currentUser
+    this.subscription=this.userLoginService.currentAccount
         .subscribe(
           data => {
               let activatedRouteSnapshot:ActivatedRouteSnapshot=this.activatedRoute.snapshot;

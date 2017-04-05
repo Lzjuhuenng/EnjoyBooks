@@ -1,7 +1,7 @@
 <div class="container" [@flyIn]="active">
    <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
-        <div class="col-lg-2" *ngIf="i<6"> 
+        <div class="col-sm-2" *ngIf="i<6"> 
             <a [routerLink]="['/bookread',1]" class="thumbnail">
                 <img src="{{book.imgURL}}" alt="通用的占位符缩略图">
             </a>
@@ -10,7 +10,7 @@
 </div>
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
-        <div class="col-lg-2" *ngIf="i>=6&&i<12"> 
+        <div class="col-sm-2" *ngIf="i>=6&&i<12"> 
             <a [routerLink]="['/bookread',1]" class="thumbnail">
                 <img src="{{book.imgURL}}" alt="通用的占位符缩略图">
             </a>
@@ -20,7 +20,7 @@
 
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
-        <div class="col-lg-2" *ngIf="i>=12&&i<18"> 
+        <div class="col-sm-2" *ngIf="i>=12&&i<18"> 
             <a [routerLink]="['/bookread',1]" class="thumbnail">
                 <img src="{{book.imgURL}}" alt="通用的占位符缩略图">
             </a>
@@ -29,7 +29,7 @@
 </div>
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
-        <div class="col-lg-2" *ngIf="i>=18&&i<24"> 
+        <div class="col-sm-2" *ngIf="i>=18&&i<24"> 
             <a [routerLink]="['/bookread',1]" class="thumbnail">
                 <img src="{{book.imgURL}}" alt="通用的占位符缩略图">
             </a>

@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Request, RequestOptions, Response, RequestMethod, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Account } from '../model/account-model';
 
-import { User } from '../model/user-model';
 
 @Injectable()
 export class UserRegisterService {
     public userRegisterURL = "src/mock-data/user-register-mock.json";
     public testEmailURL = "";
-    public subject: Subject<User> = new Subject<User>();
+    public subject: Subject<Account> = new Subject<Account>();
 
     constructor(public http:Http) {
     }
 
-    public get currentUser():Observable<User>{
+    public get currentAccount():Observable<Account>{
         return this.subject.asObservable();
     }
 
-    public register(user: User){
-        console.log(user);
+    public register(account: Account){
+        console.log(account);
         
         //向后台post数据的写法如下
         // let data = new URLSearchParams();

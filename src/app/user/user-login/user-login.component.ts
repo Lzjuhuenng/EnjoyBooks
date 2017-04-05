@@ -4,6 +4,8 @@ import { UserLoginService } from './user-login.service';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../model/user-model';
+import { Msg } from '../model/msg-model';
+import { Account } from '../model/account-model';
 
 @Component({
   selector: 'app-user-login',
@@ -12,8 +14,9 @@ import { User } from '../model/user-model';
 })
 export class UserLoginComponent implements OnInit {
     public user:User = new User();
+    public account : Account = new Account();
     public error : Error;
-
+  
     constructor(
         public router: Router,
         public activatedRoute: ActivatedRoute,
@@ -37,8 +40,9 @@ export class UserLoginComponent implements OnInit {
     }
 
     public doLogin():void{
-      console.log(this.user);
-      this.userLoginService.login(this.user);
+      console.log(this.account);
+      let msg = this.userLoginService.login(this.account);
+    
     }
 
     public doLogout():void{

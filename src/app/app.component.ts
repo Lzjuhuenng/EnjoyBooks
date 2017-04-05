@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStat
 import { TranslateService } from 'ng2-translate';
 import { UserLoginService } from './user/user-login/user-login.service';
 import { UserRegisterService } from './user/user-register/user-register.service';
-import { User } from './user/model/user-model';
+import { Account } from './user/model/account-model';
 import 'rxjs/add/operator/merge';
 
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -14,7 +14,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	public currentUser: User;
+	public currentAccount: Account;
 	private globalClickCallbackFn: Function;
 	private loginSuccessCallbackFn: Function;
 
@@ -37,13 +37,13 @@ export class AppComponent {
 			console.log("全局监听点击事件>" + event);
 		});
 
-		this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+		this.currentAccount = JSON.parse(localStorage.getItem("currentAccount"));
 
-		this.userLoginService.currentUser
-			.merge(this.userRegisterService.currentUser)
+		this.userLoginService.currentAccount
+			.merge(this.userRegisterService.currentAccount)
 			.subscribe(
 			data => {
-				this.currentUser = data;
+				this.currentAccount = data;
 				let activatedRouteSnapshot: ActivatedRouteSnapshot = this.activatedRoute.snapshot;
 				let routerState: RouterState = this.router.routerState;
 				let routerStateSnapshot: RouterStateSnapshot = routerState.snapshot;

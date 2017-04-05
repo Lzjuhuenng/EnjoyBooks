@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { User } from '../model/user-model';
+import { Account } from '../model/account-model';
 import { UserRegisterService } from './user-register.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { UserRegisterService } from './user-register.service';
 export class UserRegisterComponent implements OnInit {
 
   public userForm: FormGroup;
-  public userInfo: User = new User();
+  public accountInfo: Account = new Account();
 
   public formErrors = {
     'userName': '',
@@ -66,51 +67,51 @@ export class UserRegisterComponent implements OnInit {
 
   buildForm(): void {
     this.userForm = this.fb.group({
-      "userName": [
-        this.userInfo.userName,
+      "account": [
+        this.accountInfo.account,
         [
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(32)
         ]
       ],
-      "nickName": [
-        this.userInfo.nickName,
-        [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(32)
-        ]
-      ],
+      // "nickName": [
+      //   this.userInfo.nickName,
+      //   [
+      //     Validators.required,
+      //     Validators.minLength(2),
+      //     Validators.maxLength(32)
+      //   ]
+      // ],
       "email": [
-        this.userInfo.email,
+        this.accountInfo.email,
         [
           Validators.required,
           Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$")
         ]
       ],
       "password": [
-        this.userInfo.password,
+        this.accountInfo.password,
         [
           Validators.required,
           Validators.minLength(8),
         ]
       ],
       "confirmPassword": [
-        this.userInfo.confirmPassword,
+        this.accountInfo.confirmPassword,
         [
           Validators.required,
           Validators.minLength(8)
         ]
       ],
-      "vcode": [
-        this.userInfo.vcode,
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ]
-      ]
+      // "vcode": [
+      //   this.userInfo.vcode,
+      //   [
+      //     Validators.required,
+      //     Validators.minLength(4),
+      //     Validators.maxLength(4)
+      //   ]
+      // ]
     });
     this.userForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -134,8 +135,8 @@ export class UserRegisterComponent implements OnInit {
 
   doRegister() {
     if (this.userForm.valid) {
-      this.userInfo = this.userForm.value;
-      this.userRegisterService.register(this.userInfo)
+      this.accountInfo = this.userForm.value;
+      this.userRegisterService.register(this.accountInfo)
         .subscribe(
           data => {
             this.router.navigateByUrl("home");
@@ -148,7 +149,7 @@ export class UserRegisterComponent implements OnInit {
     }else{
        this.formErrors.formError = "存在不合法的输入项，请检查。";
     }
-    console.log(this.userInfo);
+    console.log(this.accountInfo);
   }
 
   testEmail(){
