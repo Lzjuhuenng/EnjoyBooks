@@ -16,7 +16,10 @@ import { BookShopService } from './book-shop.serveice';
   styleUrls: ['./book-shop.component.scss']
 })
 export class BookShopComponent implements OnInit {
-  public maxSize:number = 24;
+
+	private typeId:number = -1;
+  	
+	public maxSize:number = 24;
 	public itemsPerPage:number=24;
 	public totalItems:number;
 	//不要手动对这个属性进行赋值，它是和分页工具条自动绑定的
@@ -39,7 +42,7 @@ export class BookShopComponent implements OnInit {
   		this.activeRoute.params.subscribe(params => {
   			// 这里可以从路由里面获取URL参数
   			console.log(params);
-			this.loadData(this.searchText,this.currentPage);
+			this.loadData(this.typeId ,this.currentPage ,this.searchText);
    		});
 		
 		this.searchTextStream
@@ -47,15 +50,15 @@ export class BookShopComponent implements OnInit {
 	        .distinctUntilChanged()
 	        .subscribe(searchText => {
 				console.log(this.searchText);
-	        	this.loadData(this.searchText,this.currentPage)
+	        	this.loadData(this.typeId ,this.currentPage ,this.searchText)
 	        });
   	}
 
-  	public loadData(searchText:string,page:number){
+  	public loadData(typeId:number = -1 ,page:number ,searchText:string ="null"){
 		let offset = (this.currentPage-1)*this.itemsPerPage;
 		let end = (this.currentPage)*this.itemsPerPage;
 		
-		return this.bookListService.getBooks(page).subscribe(
+		return this.bookListService.getBooks(typeId,page,searchText).subscribe(
 			res=>{
 				console.log(res);
 				this.totalItems = res["total"];

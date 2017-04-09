@@ -38,10 +38,8 @@ export class BookShopService {
                .catch((error:any) => Observable.throw(error || 'Server error'));
   }
 
-  public getBooks(page:number=1):Observable<Book[]>{
-    let url = this.bookBookList +"/"+page;
-    // let params = new URLSearchParams();
-    
+  public getBooks(typeId:number = -1,page:number=1,searchText:string = "null"):Observable<Book[]>{
+    let url = this.bookBookList+"/"+typeId +"/"+page +"/"+searchText;
 
     return this.http
                //.get(url,{search:params})
