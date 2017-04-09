@@ -55,11 +55,13 @@ export class BookShopComponent implements OnInit {
 		let offset = (this.currentPage-1)*this.itemsPerPage;
 		let end = (this.currentPage)*this.itemsPerPage;
 		
-		return this.bookListService.getBookList(searchText,page).subscribe(
+		return this.bookListService.getBooks(page).subscribe(
 			res=>{
+				console.log(res);
 				this.totalItems = res["total"];
 				//TODO.正式环境中，需要去掉slice
-				this.bookList = res["items"].slice(offset,end>this.totalItems?this.totalItems:end);
+				this.bookList = res["list"].slice(offset,end>this.totalItems?this.totalItems:end);
+				console.log(this.bookList);
 			},
 			error => {console.log(error)},
 			() => {}

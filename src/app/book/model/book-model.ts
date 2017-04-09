@@ -6,6 +6,6 @@ export class Book {
   typeId: number
   bookDate: Date
   bookBrief:string
-  imgURL:string
+  coverURL:string
   bookURL:string
 }

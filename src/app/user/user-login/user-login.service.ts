@@ -20,7 +20,7 @@ export class UserLoginService {
   }
 
   public login(account:Account):any{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type' : 'application/json' });
 
     let options = new RequestOptions({ headers: headers });
 
