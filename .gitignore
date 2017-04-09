@@ -33,3 +33,7 @@ testem.log
 Thumbs.db
 /*.zip
 /.vscode
+
+#resource
+/src/assets/book/*
+/src/assets/imgs/covers/*
