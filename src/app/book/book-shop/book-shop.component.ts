@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { Book } from './../model/book-model';
-
+import { BookType } from './../model/booktype-model';
 
 import { BookShopService } from './book-shop.serveice';
 
@@ -29,7 +29,7 @@ export class BookShopComponent implements OnInit {
 	public searchTextStream:Subject<string> = new Subject<string>();
 
 	public bookList:Array<Book>;
-
+	private bookTypes : Array<BookType>;
 
   constructor( 
     public router: Router,
@@ -39,6 +39,8 @@ export class BookShopComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		this.loadBookTypes();
+		console.log(this.bookTypes);
   		this.activeRoute.params.subscribe(params => {
   			// 这里可以从路由里面获取URL参数
   			console.log(params);
@@ -54,7 +56,7 @@ export class BookShopComponent implements OnInit {
 	        });
   	}
 
-  	public loadData(typeId:number = -1 ,page:number ,searchText:string ="null"){
+  	public loadData(typeId:number = -1 ,page:number =1 ,searchText:string ="null"){
 		let offset = (this.currentPage-1)*this.itemsPerPage;
 		let end = (this.currentPage)*this.itemsPerPage;
 		
@@ -65,6 +67,18 @@ export class BookShopComponent implements OnInit {
 				//TODO.正式环境中，需要去掉slice
 				this.bookList = res["list"].slice(offset,end>this.totalItems?this.totalItems:end);
 				console.log(this.bookList);
+			},
+			error => {console.log(error)},
+			() => {}
+		);
+	}
+
+
+		public loadBookTypes(){
+		
+		return this.bookListService.getBookTypes().subscribe(
+			res=>{
+				this.bookTypes = res;
 			},
 			error => {console.log(error)},
 			() => {}
@@ -82,5 +96,11 @@ export class BookShopComponent implements OnInit {
 	public gotoWrite():void{
 		//TODO：如果没有登录，跳转到登录页，如果已登录，跳往写作页
 		this.router.navigateByUrl("user/write");
+	}
+
+	private changeTypeId(typeId:number){
+		console.log("changeTypeId" + typeId);
+		this.typeId = typeId;
+		this.loadData(this.typeId)
 	}
 }

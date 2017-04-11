@@ -10,13 +10,18 @@ import { Book } from '../model/book-model';
 @Injectable()
 export class BookDetailService {
     public BookDetailURL = "src/mock-data/book-detail-mock.json";
+    public BookDetail = "http://127.0.0.1:8080/getBookDetail"
 
     constructor(public http: Http) { 
     }
-
-    public getBook(id:number):Observable<Book>{
+    //session 跨域丢失问题，解决方案 withCredentials:true
+    public getBook(bookId:number):Observable<Book>{
+        let url = this.BookDetail +"/"+bookId;
+        let headers = new Headers({ 'Content-Type' : 'application/json' });
+        let options = new RequestOptions({ withCredentials:true});
+        console.log(url,options);
         return 	this.http
-        			.get(this.BookDetailURL)
+        			.get(url,options)
                 	.map((res: Response) => res.json());
     }
 }

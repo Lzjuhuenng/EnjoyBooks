@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Book } from './../model/book-model';
+import { BookType } from './../model/booktype-model';
 
 @Injectable()
 export class BookShopService {
@@ -13,6 +14,7 @@ export class BookShopService {
   public bookListSearchURL = 'src/mock-data/postlist-search-mock.json';
   public bookBookList = 'http://127.0.0.1:8080/getBooks';
   
+  private bookTypesURL = 'http://127.0.0.1:8080/getBookTypes';
 
   constructor(public http:Http) { }
   
@@ -44,6 +46,20 @@ export class BookShopService {
     return this.http
                //.get(url,{search:params})
                .get(url)
+               .map((res:Response) => {
+                   let result=res.json();
+                   console.log(result);
+                   return result;
+               })
+               .catch((error:any) => Observable.throw(error || 'Server error'));
+  }
+
+    public getBookTypes():Observable<BookType[]>{
+    
+
+    return this.http
+               //.get(url,{search:params})
+               .get(this.bookTypesURL)
                .map((res:Response) => {
                    let result=res.json();
                    console.log(result);

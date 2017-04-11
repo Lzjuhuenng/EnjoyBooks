@@ -2,13 +2,14 @@
   <div class="row"  id="nav">
         <div class="col-md-12 filter"> 
           <ul class="nav nav-tabs">
-            <li class="active"><a href="?tag=">全部</a></li>
-            <li class=""><a href="?tag=web">Web开发</a></li>
+            <li class="{{typeId==-1?'active':''}}"><a (click)="changeTypeId(-1)">全部</a></li>
+            
+            <li class="{{typeId == type.id?'active':''}}" *ngFor="let type of bookTypes"><a (click)="changeTypeId(type.id)">{{type.bookType}}</a></li>
           
-            <li class=""><a href="?tag=data">数据管理</a></li>
+            <!--<li class=""><a href="?tag=data">数据管理</a></li>
             <li class=""><a href="?tag=machinelearning">机器学习</a></li>
             <li class=""><a href="?tag=devops">DevOps</a></li>
-            <li class=""><a href="?tag=language">开发语言</a></li>
+            <li class=""><a href="?tag=language">开发语言</a></li>-->
             <li class="navbar-right">
                <button class="btn btn-primary" id="search-btn">
                  搜索
@@ -26,7 +27,7 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i<6"> 
-            <a [routerLink]="['/bookdetail',1]" class="thumbnail">
+            <a [routerLink]="['/bookdetail',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图">
             </a>
         </div >
@@ -35,7 +36,7 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=6&&i<12"> 
-            <a [routerLink]="['/bookdetail',1]" class="thumbnail">
+            <a [routerLink]="['/bookdetail',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图">
             </a>
         </div >
@@ -45,7 +46,7 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=12&&i<18"> 
-            <a [routerLink]="['/bookdetail',1]" class="thumbnail">
+            <a [routerLink]="['/bookdetail',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图">
             </a>
         </div >
@@ -54,7 +55,7 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=18&&i<24"> 
-            <a [routerLink]="['/bookdetail',1]" class="thumbnail">
+            <a [routerLink]="['/bookdetail',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图">
             </a>
         </div >

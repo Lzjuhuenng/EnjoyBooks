@@ -22,7 +22,7 @@ export class UserLoginService {
   public login(account:Account):any{
     let headers = new Headers({ 'Content-Type' : 'application/json' });
 
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ withCredentials:true,headers: headers });
 
     return this.http
            .post(this.userLogin, account , options)
@@ -30,9 +30,6 @@ export class UserLoginService {
             .map((response: Response) => {
               let user = response.json();
               console.log("account object>"+account);
-              if(user && user.token){
-              
-              }
               return response;
             })
             .subscribe(
