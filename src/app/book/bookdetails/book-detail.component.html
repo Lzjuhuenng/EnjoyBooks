@@ -7,8 +7,8 @@
     <p id="bookAuthor">{{book.bookAuthor}}</p>
     <p id="bookBrief">&nbsp;&nbsp;&nbsp;&nbsp;{{book.bookBrief}}</p>
       <p id="btn">
-        <button  class="btn btn-default" id="addBookshelves">加入书架</button>
-        <a [routerLink]="['/bookread',book.bookId]"><button  class="btn btn-default" id="readBook" >阅读</button></a>
+        <button  class="btn btn-default" id="addBookshelves" *ngIf="!addToShelf" (click)="addBookToShelf(book.id)">加入书架</button>
+        <a [routerLink]="['/bookread',book.id]"><button  class="btn btn-default" id="readBook">阅读</button></a>
     </p>
   </div>
 </div>

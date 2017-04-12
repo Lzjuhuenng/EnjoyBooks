@@ -42,10 +42,12 @@ export class BookShopService {
 
   public getBooks(typeId:number = -1,page:number=1,searchText:string = "null"):Observable<Book[]>{
     let url = this.bookBookList+"/"+typeId +"/"+page +"/"+searchText;
+    let headers = new Headers({ 'Content-Type' : 'application/json' });
+    let options = new RequestOptions({ withCredentials:true});
 
     return this.http
                //.get(url,{search:params})
-               .get(url)
+               .get(url,options)
                .map((res:Response) => {
                    let result=res.json();
                    console.log(result);

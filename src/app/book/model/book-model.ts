@@ -7,5 +7,7 @@ export class Book {
   bookDate: Date
   bookBrief:string
   coverURL:string
-  bookURL:string
+  bookPath:string
+  accountId : number
+  lastRead : string
 }

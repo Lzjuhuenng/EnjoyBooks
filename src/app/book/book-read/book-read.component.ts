@@ -54,7 +54,11 @@ export class BookReadComponent implements OnInit {
     EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
     // fileStorage.filePath = EPUBJS.filePath;
 		console.log(EPUBJS);
-    this.reader = ePubReader(book.bookURL);
+    this.reader = ePubReader(book.bookPath);
+    if(book.lastRead!=null&&book.lastRead!=""){
+      console.log(this.reader);
+      this.reader.book.gotoCfi(book.lastRead);
+    }
            
 	}	
 	
