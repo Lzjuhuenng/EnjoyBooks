@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +34,21 @@ export class BookReadComponent implements OnInit {
     );
   	}
 
+    ngOnDestroy(){
+   
+      this.bookReadService.recordLastRead(this.book.shelfId,this.reader.book.getCurrentLocationCfi())
+      .subscribe(
+          data => console.log(data)
+      )
+        
+      console.log("ngOnDestroy");
+    }
+
+    // ngAfterViewChecked(){
+    //   console.log("ngAfterViewChecked")
+    //   this.bookReadService.recordLastRead(this.book.shelfId,this.reader.book.getCurrentLocationCfi());
+    // }
+
   public onReady(id:number){
     this.bookReadService
         .getBook(id)
@@ -55,10 +70,14 @@ export class BookReadComponent implements OnInit {
     // fileStorage.filePath = EPUBJS.filePath;
 		console.log(EPUBJS);
     this.reader = ePubReader(book.bookPath);
+     console.log(this.reader); 
     if(book.lastRead!=null&&book.lastRead!=""){
       console.log(this.reader);
       this.reader.book.gotoCfi(book.lastRead);
-    }
+    
+      }
+  
+   
            
 	}	
 	

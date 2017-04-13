@@ -8,6 +8,7 @@ export class Book {
   bookBrief:string
   coverURL:string
   bookPath:string
+  shelfId : number
   accountId : number
   lastRead : string
 }
