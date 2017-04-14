@@ -1,3 +1,5 @@
+import {Bookmark} from './bookmark-model';
+
 export class Book {
   bookId: number
   bookName: string
@@ -11,4 +13,5 @@ export class Book {
   shelfId : number
   accountId : number
   lastRead : string
+  bookmarkList :Array<Bookmark>
 }

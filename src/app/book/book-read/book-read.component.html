@@ -35,7 +35,7 @@
           <span id="chapter-title"></span>
         </div>
         <div id="title-controls">
-          <a id="bookmark" class="glyphicon glyphicon-star-empty">Bookmark</a>
+          <a id="bookmark" class="glyphicon {{existBookmark?'glyphicon-star':'glyphicon-star-empty'}}" (click)="bookmarkToggle()">Bookmark</a>
           <a id="exit" class="glyphicon glyphicon-log-out">Exit</a>
         </div>
       </div>
