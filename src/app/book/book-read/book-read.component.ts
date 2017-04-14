@@ -99,8 +99,14 @@ export class BookReadComponent implements OnInit {
     console.log(index);
     if(index>=0){
       let bookmark = this.bookMarkArr.splice(index)[0];
-      this.reader.removeBookmark(bookmark);
-      this.existBookmark = this.hasBookmark();
+      this.bookReadService.delBookmark(bookmark.id).subscribe(
+        data =>{
+          this.reader.removeBookmark(bookmark);
+          console.log(data);
+          this.existBookmark = this.hasBookmark();
+        }
+      )
+      
     }else{
       let bookmark = new Bookmark();
       bookmark.epubcfi = epubcfi;
@@ -109,14 +115,13 @@ export class BookReadComponent implements OnInit {
       this.bookReadService.addBookmark(bookmark).subscribe(
          data => { 
           console.log(data);
-          bookmark.id = 11111+this.bookMarkArr.length;
+          bookmark.id = Number(data);
           this.reader.addBookmark(bookmark);
           this.bookMarkArr.push(bookmark);
           console.log(this.bookMarkArr);
           this.existBookmark = this.hasBookmark();
           }
       );
-
     }
 
   }
@@ -158,6 +163,7 @@ export class BookReadComponent implements OnInit {
     for(let i=0;i<this.bookMarkArr.length;i++){
        this.reader.addBookmark(this.bookMarkArr[i])
     }
+    this.hasBookmark();
   }
 	
 }

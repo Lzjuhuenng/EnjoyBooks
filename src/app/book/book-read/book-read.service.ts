@@ -14,6 +14,7 @@ export class BookReadService {
   private bookReadURL = "http://127.0.0.1:8080/getReadBook";
   private recordLastReadURL="http://127.0.0.1:8080/recordLastRead";
   private addBookmarkURL="http://127.0.0.1:8080/addBookmark";
+  private delBookmarkURL = "http://127.0.0.1:8080/delBookmark"
 
   constructor(public http:Http) { }
   
@@ -49,6 +50,17 @@ export class BookReadService {
       
       return 	this.http
         			.post(url,bookmark,options)
+                	.map((res: Response) =>res.json());
+    }
+
+    public delBookmark(id:number):Observable<Number>{
+      
+      let url = this.delBookmarkURL+'/'+id;
+      let headers = new Headers({'Content-Type' : 'application/json' });
+      let options = new RequestOptions({headers:headers,withCredentials:true});
+      
+      return 	this.http
+        			.get(url,options)
                 	.map((res: Response) =>res.json());
     }
   
