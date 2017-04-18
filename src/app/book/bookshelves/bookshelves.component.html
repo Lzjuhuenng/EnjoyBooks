@@ -2,8 +2,8 @@
    <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i<6"> 
-            <a [routerLink]="['/bookread',1]" class="thumbnail">
-                <img src="{{book.imgURL}}" alt="通用的占位符缩略图" class="img-responsive">
+            <a [routerLink]="['/bookread',book.id]" class="thumbnail">
+                <img src="{{book.coverURL}}" alt="通用的占位符缩略图" class="img-responsive">
             </a>
         </div >
     </div>
@@ -11,7 +11,7 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=6&&i<12"> 
-            <a [routerLink]="['/bookread',1]" class="thumbnail">
+            <a [routerLink]="['/bookread',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图" class="img-responsive">
             </a>
         </div >
@@ -21,8 +21,8 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=12&&i<18"> 
-            <a [routerLink]="['/bookread',1]" class="thumbnail">
-                <img src="{{book.imgURL}}" alt="通用的占位符缩略图" class="img-responsive">
+            <a [routerLink]="['/bookread',book.id]" class="thumbnail">
+                <img src="{{book.coverURL}}" alt="通用的占位符缩略图" class="img-responsive">
             </a>
         </div >
     </div>
@@ -30,10 +30,17 @@
 <div class="row">
     <div class="post-item-container" *ngFor="let book of bookList; let i = index">
         <div class="col-sm-2" *ngIf="i>=18&&i<24"> 
-            <a [routerLink]="['/bookread',1]" class="thumbnail">
+            <a [routerLink]="['/bookread',book.id]" class="thumbnail">
                 <img src="{{book.coverURL}}" alt="通用的占位符缩略图" class="img-responsive">
             </a>
         </div >
     </div>
 </div>
+<pagination [totalItems]="totalItems" [maxSize]="maxSize" 
+            [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" 
+            firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" 
+            previousText="{{'previousPage' | translate}}" nextText="{{'nextPage' | translate}}" 
+            [boundaryLinks]="true" [rotate]="false" 
+            (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm" >
+</pagination>
 </div>

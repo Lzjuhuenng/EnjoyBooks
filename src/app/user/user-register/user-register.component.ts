@@ -15,10 +15,11 @@ export class UserRegisterComponent implements OnInit {
 
   public userForm: FormGroup;
   public accountInfo: Account = new Account();
+  private isEmailExist :boolean = false;
+  private isAccountExist : boolean = false;
 
   public formErrors = {
     'userName': '',
-    'nickName': '',
     'email': '',
     'password': '',
     'confirmPassword': '',
@@ -29,10 +30,6 @@ export class UserRegisterComponent implements OnInit {
     'userName': {
       'required': '用户名必须输入。',
       'minlength': '用户名4到32个字符。'
-    },
-    'nickName': {
-      'required': '昵称必须输入。',
-      'minlength': '昵称2到32个字符。'
     },
     'email': {
       'required': '邮箱必须输入。',
@@ -87,7 +84,8 @@ export class UserRegisterComponent implements OnInit {
         this.accountInfo.email,
         [
           Validators.required,
-          Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$")
+          Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$"),
+          Validators.requiredTrue 
         ]
       ],
       "password": [
@@ -163,5 +161,10 @@ export class UserRegisterComponent implements OnInit {
           console.error(error);
         }
       )
+  }
+
+  testAccount(){
+    let account = this.userForm.get('account').value;
+    
   }
 }

@@ -63,9 +63,10 @@ export class BookShopComponent implements OnInit {
 		return this.bookListService.getBooks(typeId,page,searchText).subscribe(
 			res=>{
 				console.log(res);
-				this.totalItems = res["total"];
+				this.totalItems = res["totalRecords"];
+				console.log("totalItems"+this.totalItems);
 				//TODO.正式环境中，需要去掉slice
-				this.bookList = res["list"].slice(offset,end>this.totalItems?this.totalItems:end);
+				this.bookList = res["list"];
 				console.log(this.bookList);
 			},
 			error => {console.log(error)},
@@ -86,7 +87,7 @@ export class BookShopComponent implements OnInit {
 	}
 	 
 	public pageChanged(event:any):void {
-		this.router.navigateByUrl("posts/page/"+event.page);
+		this.router.navigateByUrl("bookshop/"+event.page);
 	}
 
 	public searchChanged($event):void{

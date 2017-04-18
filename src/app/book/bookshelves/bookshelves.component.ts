@@ -21,7 +21,7 @@ import { flyIn } from '../../animations/fly-in';
 export class BookshelvesComponent implements OnInit {
 
 
-  public itemsPerPage:number=24;
+  	public itemsPerPage:number=24;
 	public totalItems:number;
 	//不要手动对这个属性进行赋值，它是和分页工具条自动绑定的
 	public currentPage:number = 1;
@@ -59,11 +59,11 @@ export class BookshelvesComponent implements OnInit {
 		let offset = (this.currentPage-1)*this.itemsPerPage;
 		let end = (this.currentPage)*this.itemsPerPage;
 		
-		return this.bookshelvesService.getBookList(searchText,page).subscribe(
+		return this.bookshelvesService.getBookList(page).subscribe(
 			res=>{
-				this.totalItems = res["total"];
+				this.totalItems = res["totalRecords"];
 				//TODO.正式环境中，需要去掉slice
-				this.bookList = res["items"].slice(offset,end>this.totalItems?this.totalItems:end);
+				this.bookList = res["list"];
 			},
 			error => {console.log(error)},
 			() => {}
@@ -71,15 +71,6 @@ export class BookshelvesComponent implements OnInit {
 	}
 	 
 	public pageChanged(event:any):void {
-		this.router.navigateByUrl("posts/page/"+event.page);
-	}
-
-	public searchChanged($event):void{
-		this.searchTextStream.next(this.searchText);
-	}
-	
-	public gotoWrite():void{
-		//TODO：如果没有登录，跳转到登录页，如果已登录，跳往写作页
-		this.router.navigateByUrl("user/write");
+		this.router.navigateByUrl("bookshelves/"+event.page);
 	}
 }

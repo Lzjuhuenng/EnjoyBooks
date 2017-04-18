@@ -8,7 +8,10 @@ import { Account } from '../model/account-model';
 @Injectable()
 export class UserRegisterService {
     public userRegisterURL = "src/mock-data/user-register-mock.json";
-    public testEmailURL = "";
+    public testEmailURL = "http://127.0.0.1:8080/isEmailExist";
+    private testAccountURL = "http://127.0.0.1:8080/isAccountExist";
+    private registerURL = "http://127.0.0.1:8080/isAccountExist";
+
     public subject: Subject<Account> = new Subject<Account>();
 
     constructor(public http:Http) {
@@ -37,6 +40,17 @@ export class UserRegisterService {
     }
 
     public testEmail(email:string){
+        
+        let url = this.testEmailURL +'/'+email;
+
+        return this.http.get(this.testEmailURL)
+            .map((response: Response) => response.json());
+    }
+
+    public testAccount(account:string){
+
+        let url = this.testAccountURL +'/'+account;
+
         return this.http.get(this.testEmailURL)
             .map((response: Response) => response.json());
     }
