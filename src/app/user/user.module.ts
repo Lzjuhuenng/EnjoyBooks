@@ -13,12 +13,13 @@ import { UserMainComponent } from './user-main/user-main.component';
 
 import { PostTableService } from '../manage/post-table/services/post-table.service';
 
+
 import { userRoutes } from './user.routes';
 
 @NgModule({
   declarations: [
     UserMainComponent,
-    WritePostComponent
+    WritePostComponent,
   ],
   imports: [
     CommonModule,

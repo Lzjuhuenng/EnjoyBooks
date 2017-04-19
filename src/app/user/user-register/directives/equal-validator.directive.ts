@@ -16,7 +16,7 @@ export class EqualValidator implements Validator {
     validate(control: AbstractControl): { [key: string]: any } {
         //当前控件的值
         let selfValue = control.value;
-    
+
         // 需要比较的控件，根据属性名称获取
         let targetControl = control.root.get(this.validateEqual);
         // 值不相等

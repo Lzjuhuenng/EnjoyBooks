@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from '../model/user-model';
 import { Account } from '../model/account-model';
 import { UserRegisterService } from './user-register.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 @Component({
   selector: 'app-user-register',
@@ -13,13 +15,13 @@ import { UserRegisterService } from './user-register.service';
 })
 export class UserRegisterComponent implements OnInit {
 
-  public userForm: FormGroup;
+  public accountForm: FormGroup;
   public accountInfo: Account = new Account();
   private isEmailExist :boolean = false;
   private isAccountExist : boolean = false;
 
   public formErrors = {
-    'userName': '',
+    'account': '',
     'email': '',
     'password': '',
     'confirmPassword': '',
@@ -27,9 +29,9 @@ export class UserRegisterComponent implements OnInit {
     'vcode':''
   };
   validationMessages = {
-    'userName': {
+    'account': {
       'required': '用户名必须输入。',
-      'minlength': '用户名4到32个字符。'
+      'minlength': '用户名4到32个字符。',
     },
     'email': {
       'required': '邮箱必须输入。',
@@ -56,6 +58,7 @@ export class UserRegisterComponent implements OnInit {
     public userRegisterService: UserRegisterService,
     public router: Router,
     public route: ActivatedRoute,
+    private toastr:ToastsManager
   ) { }
 
   ngOnInit() {
@@ -63,7 +66,7 @@ export class UserRegisterComponent implements OnInit {
   }
 
   buildForm(): void {
-    this.userForm = this.fb.group({
+    this.accountForm = this.fb.group({
       "account": [
         this.accountInfo.account,
         [
@@ -84,8 +87,7 @@ export class UserRegisterComponent implements OnInit {
         this.accountInfo.email,
         [
           Validators.required,
-          Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$"),
-          Validators.requiredTrue 
+          Validators.pattern("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$")
         ]
       ],
       "password": [
@@ -111,14 +113,14 @@ export class UserRegisterComponent implements OnInit {
       //   ]
       // ]
     });
-    this.userForm.valueChanges
+    this.accountForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
   }
 
   onValueChanged(data?: any) {
-    if (!this.userForm) { return; }
-    const form = this.userForm;
+    if (!this.accountForm) { return; }
+    const form = this.accountForm;
     for (const field in this.formErrors) {
       this.formErrors[field] = '';
       const control = form.get(field);
@@ -132,12 +134,20 @@ export class UserRegisterComponent implements OnInit {
   }
 
   doRegister() {
-    if (this.userForm.valid) {
-      this.accountInfo = this.userForm.value;
+    if (this.accountForm.valid) {
+      this.accountInfo = this.accountForm.value;
       this.userRegisterService.register(this.accountInfo)
         .subscribe(
           data => {
-            this.router.navigateByUrl("home");
+
+            console.log(data);
+            if(data){
+
+                this.toastr.success('退出成功！','系统提示');
+                this.router.navigateByUrl("login");
+            }else{
+               this.formErrors.formError = "注册失败，请重试"
+            }
           },
           error => {
             this.formErrors.formError = error.message;
@@ -151,11 +161,12 @@ export class UserRegisterComponent implements OnInit {
   }
 
   testEmail(){
-    let email = this.userForm.get("email").value;
+    let email = this.accountForm.get("email").value;
     this.userRegisterService.testEmail(email)
       .subscribe(
         data => {
           console.log(data);
+          this.isEmailExist = data;
         },
         error => {
           console.error(error);
@@ -164,7 +175,20 @@ export class UserRegisterComponent implements OnInit {
   }
 
   testAccount(){
-    let account = this.userForm.get('account').value;
-    
+    let account = this.accountForm.get('account').value;
+     this.userRegisterService.testAccount(account)
+      .subscribe(
+        data => {
+          this.isAccountExist = data;
+          console.log(data);
+        },
+        error => {
+          console.error(error);
+        }
+      )
   }
+
+//    required(c: Control): StringMap<string, boolean> {  
+//     return isBlank(c.value) || c.value == "" ? {"required": true} : null;  
+// }
 }

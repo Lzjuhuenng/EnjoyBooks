@@ -8,9 +8,10 @@ import { Account } from '../model/account-model';
 @Injectable()
 export class UserRegisterService {
     public userRegisterURL = "src/mock-data/user-register-mock.json";
-    public testEmailURL = "http://127.0.0.1:8080/isEmailExist";
-    private testAccountURL = "http://127.0.0.1:8080/isAccountExist";
-    private registerURL = "http://127.0.0.1:8080/isAccountExist";
+    public userRegister = 'http://127.0.0.1:8080/access/register';
+    public testEmailURL = "http://127.0.0.1:8080/access/isEmailExist";
+    private testAccountURL = "http://127.0.0.1:8080/access/isAccountExist";
+    private registerURL = "http://127.0.0.1:8080/access/isAccountExist";
 
     public subject: Subject<Account> = new Subject<Account>();
 
@@ -31,27 +32,32 @@ export class UserRegisterService {
         // return this.http.post(this.userRegisterURL,data);
         
         return this.http
-                    .get(this.userRegisterURL)
-                    .map((response: Response) => {
-                        let user = response.json();
-                        localStorage.setItem("currentUser",JSON.stringify(user));
-                        this.subject.next(user);    
-                    });
+                    //.get(this.userRegisterURL)
+                    .post(this.userRegister,account)
+                    .map((response: Response) =>response.json()
+                    // {
+
+                    //     let account = response.json();
+                    //     // localStorage.setItem("currentUser",JSON.stringify(user));
+                    //     // this.subject.next(user);    
+                    //}
+                    );
     }
 
     public testEmail(email:string){
         
         let url = this.testEmailURL +'/'+email;
 
-        return this.http.get(this.testEmailURL)
+        return this.http.get(url)
             .map((response: Response) => response.json());
     }
 
     public testAccount(account:string){
-
+        let headers = new Headers({'Content-Type' : 'application/json' });
+        let options = new RequestOptions({headers:headers,withCredentials:true});
         let url = this.testAccountURL +'/'+account;
 
-        return this.http.get(this.testEmailURL)
+        return this.http.get(url,options)
             .map((response: Response) => response.json());
     }
 }

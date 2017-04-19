@@ -16,6 +16,8 @@ import { ForgetPwdService } from './user/forget-pwd/forget-pwd.service';
 import { BookModule } from './book/book.module';
 
 import { EqualValidator } from './user/user-register/directives/equal-validator.directive';
+
+
 import {appRoutes} from './app.routes';
 
 import { ChartComponent } from './chart/chart.component';
