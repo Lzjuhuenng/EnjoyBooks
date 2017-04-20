@@ -36,6 +36,7 @@
         </div >
     </div>
 </div>
+<div id="pagination">
 <pagination [totalItems]="totalItems" [maxSize]="maxSize" 
             [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" 
             firstText="{{'firstPage' | translate}}" lastText="{{'lastPage' | translate}}" 
@@ -43,4 +44,5 @@
             [boundaryLinks]="true" [rotate]="false" 
             (numPages)="numPages = $event" (pageChanged)="pageChanged($event)" class="pagination-sm" >
 </pagination>
+</div>
 </div>

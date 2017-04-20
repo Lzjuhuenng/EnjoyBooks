@@ -94,10 +94,6 @@ export class BookShopComponent implements OnInit {
 		this.searchTextStream.next(this.searchText);
 	}
 	
-	public gotoWrite():void{
-		//TODO：如果没有登录，跳转到登录页，如果已登录，跳往写作页
-		this.router.navigateByUrl("user/write");
-	}
 
 	private changeTypeId(typeId:number){
 		console.log("changeTypeId" + typeId);

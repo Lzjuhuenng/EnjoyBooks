@@ -41,6 +41,7 @@ export class BookShopService {
   }
 
   public getBooks(typeId:number = -1,page:number=1,searchText:string = "null"):Observable<Book[]>{
+    searchText =searchText.trim()==""?"null":searchText.trim();
     let url = this.bookBookList+"/"+typeId +"/"+page +"/"+searchText;
     let headers = new Headers({ 'Content-Type' : 'application/json' });
     let options = new RequestOptions({ withCredentials:true});

@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -24,6 +25,7 @@ export class BookReadComponent implements OnInit {
   private bookMarkArr = new Array<Bookmark>();
   private existBookmark :boolean = false;
   constructor(
+    private locations : Location,
     public elementRef: ElementRef,
     public renderer: Renderer,
     public router: Router,
@@ -164,6 +166,11 @@ export class BookReadComponent implements OnInit {
        this.reader.addBookmark(this.bookMarkArr[i])
     }
     this.hasBookmark();
+  }
+
+  private goBack():void{
+    this.locations.back();
+    this.locations.back();
   }
 	
 }

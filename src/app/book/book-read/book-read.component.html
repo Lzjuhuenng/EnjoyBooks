@@ -2,10 +2,10 @@
   <div id="sidebar">
     <div id="panels">
       <input id="searchBox" placeholder="search" type="search">
-      <a id="show-Search" class="show_view glyphicon glyphicon-search" data-view="Search"></a>
-      <a id="show-Toc" class="show_view glyphicon glyphicon-th-list active" data-view="Toc">TOC</a>
-      <a id="show-Bookmarks" class="show_view glyphicon glyphicon-bookmark" data-view="Bookmarks">Bookmarks</a>
-      <a id="show-Notes" class="show_view 	glyphicon glyphicon-edit" data-view="Notes">Notes</a>
+      <a id="show-Search" class="show_view fa fa-search" data-view="Search"></a>
+      <a id="show-Toc" class="show_view fa fa-th-list active" data-view="Toc">TOC</a>
+      <a id="show-Bookmarks" class="show_view fa fa-bookmark" data-view="Bookmarks">  Bookmarks</a>
+      <a id="show-Notes" class="show_view fa fa-edit" data-view="Notes">Notes</a>
     </div>
     <div id="tocView" class="view">
     </div>
@@ -27,7 +27,7 @@
     <div id="main">
       <div id="titlebar">
         <div id="opener">
-            <a id="slider" class="glyphicon glyphicon-th-large">Menu</a>
+            <a id="slider" class="fa fa-th-large">  Menu</a>
         </div>
         <div id="metainfo">
           <span id="book-title"></span>
@@ -35,8 +35,9 @@
           <span id="chapter-title"></span>
         </div>
         <div id="title-controls">
-          <a id="bookmark" class="glyphicon {{existBookmark?'glyphicon-star':'glyphicon-star-empty'}}" (click)="bookmarkToggle()">Bookmark</a>
-          <a id="exit" class="glyphicon glyphicon-log-out">Exit</a>
+          <a id="font" class="fa fa-font"></a>
+          <a id="bookmark" class="fa {{existBookmark?'fa-bookmark':'fa-bookmark-o'}}" (click)="bookmarkToggle()">  Bookmark</a>
+          <a id="exit" class="fa fa-sign-out" (click)="goBack()">  Exit</a>
         </div>
       </div>
       
