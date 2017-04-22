@@ -20,8 +20,7 @@ import { EqualValidator } from './user/user-register/directives/equal-validator.
 
 import {appRoutes} from './app.routes';
 
-import { ChartComponent } from './chart/chart.component';
-import { EChartOptionDirective1 } from './chart/echart-option.directive';
+
 
 
 export function createTranslateLoader(http: Http) {
@@ -34,8 +33,6 @@ export function createTranslateLoader(http: Http) {
     ForgetPwdComponent,
     UserRegisterComponent,
     EqualValidator,
-    EChartOptionDirective1,
-    ChartComponent
   ],
   imports: [
     BrowserModule,

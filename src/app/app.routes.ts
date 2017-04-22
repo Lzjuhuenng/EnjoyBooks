@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
 import { ForgetPwdComponent } from './user/forget-pwd/forget-pwd.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
-import { ChartComponent } from './chart/chart.component';
 import { BookshelvesComponent } from './book/bookshelves/bookshelves.component';
 import { BookReadComponent } from './book/book-read/book-read.component';
 
@@ -23,9 +22,6 @@ export const appRoutes=[
 		loadChildren:'./book/book.module#BookModule'
 	},
 	{
-		path:"echart",
-		component:ChartComponent
-	},{
 		path:'home',
 		loadChildren:'./home/home.module#HomeModule'
 	},{
