@@ -8,7 +8,6 @@ import { PostSharedModule } from '../shared/post.module';
 
 import { AlertModule, AccordionModule } from 'ng2-bootstrap';
 
-import { WritePostComponent } from '../post/write-post/write-post.component';
 import { UserMainComponent } from './user-main/user-main.component';
 
 import { PostTableService } from '../manage/post-table/services/post-table.service';
@@ -19,7 +18,6 @@ import { userRoutes } from './user.routes';
 @NgModule({
   declarations: [
     UserMainComponent,
-    WritePostComponent,
   ],
   imports: [
     CommonModule,
