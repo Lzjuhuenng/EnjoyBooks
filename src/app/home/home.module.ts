@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { HomeComponent }   from './home.component';
-import { OnlineContactComponent } from './online-contact/online-contact.component';
-
 import {homeRoutes} from './home.routes';
 
 @NgModule({
@@ -13,8 +11,7 @@ import {homeRoutes} from './home.routes';
     ],
     exports: [],
     declarations: [
-        HomeComponent,
-        OnlineContactComponent
+        HomeComponent
     ],
     providers: [],
 })
