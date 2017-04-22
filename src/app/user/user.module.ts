@@ -10,8 +10,6 @@ import { AlertModule, AccordionModule } from 'ng2-bootstrap';
 
 import { UserMainComponent } from './user-main/user-main.component';
 
-import { PostTableService } from '../manage/post-table/services/post-table.service';
-
 
 import { userRoutes } from './user.routes';
 
@@ -32,7 +30,6 @@ import { userRoutes } from './user.routes';
     UserMainComponent
   ],
   providers: [
-    PostTableService
   ]
 })
 export class UserModule { }

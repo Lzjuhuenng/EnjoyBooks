@@ -9,7 +9,6 @@ import { ManageMainComponent } from './manage-main/manage-main.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { SysParamComponent } from './sys-param/sys-param.component';
 
-import { PostTableService } from './post-table/services/post-table.service';
 import { AuthGuard } from './auth-guard';
 
 import { manageRoutes } from './manage.routes';
@@ -31,7 +30,6 @@ import { manageRoutes } from './manage.routes';
   	ManageMainComponent
   ],
   providers: [
-    PostTableService,
     AuthGuard
   ]
 })
