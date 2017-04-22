@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/Subject';
 import { Book } from './../model/book-model';
 import { Bookmark } from './../model/bookmark-model';
 
-
 import { BookReadService } from '../book-read/book-read.service';
 
 declare var EPUBJS : any ,ePubReader:any;

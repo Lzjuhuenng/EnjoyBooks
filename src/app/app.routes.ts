@@ -10,6 +10,11 @@ import { BookshelvesComponent } from './book/bookshelves/bookshelves.component';
 import { BookReadComponent } from './book/book-read/book-read.component';
 
 export const appRoutes=[
+	{
+		path:'',
+		redirectTo:'bookshelves/:page',
+		pathMatch:'full'
+	},
 	{ 
 		path: 'bookshelves/:page', 
 		component:BookshelvesComponent
@@ -19,10 +24,6 @@ export const appRoutes=[
 		loadChildren:'./book/book.module#BookModule'
 	},
 	{
-		path:'',
-		redirectTo:'bookshelves/:page',
-		pathMatch:'full'
-	},{
 		path:"echart",
 		component:ChartComponent
 	},{

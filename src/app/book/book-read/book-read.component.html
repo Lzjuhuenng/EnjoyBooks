@@ -36,6 +36,7 @@
         </div>
         <div id="title-controls">
           <a id="font" class="fa fa-font"></a>
+          <a id='setting' class="fa  fa-cog"></a>
           <a id="bookmark" class="fa {{existBookmark?'fa-bookmark':'fa-bookmark-o'}}" (click)="bookmarkToggle()">  Bookmark</a>
           <a id="exit" class="fa fa-sign-out" (click)="goBack()">  Exit</a>
         </div>
@@ -48,8 +49,9 @@
 
       <div id="loader"><img src="assets/imgs/loader.gif"></div>
     </div>
+    <div class="modal" style=""></div>
     <div class="modal md-effect-1" id="settings-modal">
-      <div class="md-content">
+      <!--<div class="md-content">
         <h3>Settings</h3>
         <div>
           <p>
@@ -57,7 +59,35 @@
           </p>
         </div>
         <div class="closer icon-cancel-circled"></div>
+      </div>-->
+    </div>
+    <div class="overlay">
+      <div class="over" style="position:absolute;width:100%;height:100%;top:0px;">
+
+      </div>
+           <div class="md-content">
+        <h3>Settings</h3>
+        <div>
+          <h4>
+            背景色
+          </h4>
+          <!--
+            河白 #FFFFFF rgb(255, 255, 255)
+            杏仁黄 #FAF9DE rgb(250, 249, 222)
+            秋叶褐 #FFF2E2 rgb(255, 242, 226)
+            胭脂红 #FDE6E0 rgb(253, 230, 224)
+            青草绿 #E3EDCD rgb(227, 237, 205)
+            海天蓝 #DCE2F1 rgb(220, 226, 241)
+            葛巾紫 #E9EBFE rgb(233, 235, 254)
+            极光灰 #EAEAEF rgb(234, 234, 239)
+            -->
+          <p><input type="radio"><input type="radio"><input type="radio"><input type="radio"></p>
+          <h4>字体调整</h4>
+          <p>
+            <input type="checkbox" id="sidebarReflow" name="sidebarReflow">Reflow text when sidebars are open.
+          </p>
+        </div>
+        <div class="closer fa  fa-times"></div>
       </div>
     </div>
-    <div class="overlay"></div>
   </div>

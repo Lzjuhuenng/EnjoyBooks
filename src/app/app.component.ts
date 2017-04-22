@@ -39,6 +39,10 @@ export class AppComponent {
 
 		this.currentAccount = JSON.parse(localStorage.getItem("currentAccount"));
 
+		if(this.currentAccount){
+			this.userLoginService.login(this.currentAccount);
+		}
+
 		this.userLoginService.currentAccount
 			.merge(this.userRegisterService.currentAccount)
 			.subscribe(
@@ -54,7 +58,7 @@ export class AppComponent {
 
 				//如果是从/login这个URL进行的登录，跳转到首页，否则什么都不做
 				if (routerStateSnapshot.url.indexOf("/login") != -1) {
-					this.router.navigateByUrl("/home");
+					this.router.navigateByUrl("/bookshelves/1");
 				}
 			},
 			error => console.error(error)
@@ -74,9 +78,9 @@ export class AppComponent {
 		}
 	}
 
-	toggle(button: any) {
-		console.log(button);
-	}
+	// toggle(button: any) {
+	// 	console.log(button);
+	// }
 
 	public doLogout(): void {
 		this.userLoginService.logout();

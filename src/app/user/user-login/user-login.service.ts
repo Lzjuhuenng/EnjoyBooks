@@ -42,7 +42,6 @@ export class UserLoginService {
                       console.log("success");
                       localStorage.setItem("currentAccount",JSON.stringify(account));
                       this.subject.next(Object.assign({},account));
-                      this.router.navigate(['/bookshelves/1'])
                       }
                 },
                 error => {
@@ -52,7 +51,9 @@ export class UserLoginService {
   }
 
   public logout():void{
+    
     localStorage.removeItem("currentAccount");
+    //复制一个或者多个对象到目标对象中
     this.subject.next(Object.assign({}));
   }
 }
