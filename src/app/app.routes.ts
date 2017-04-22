@@ -5,7 +5,6 @@ import { UserLoginComponent } from './user/user-login/user-login.component';
 import { ForgetPwdComponent } from './user/forget-pwd/forget-pwd.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { ChartComponent } from './chart/chart.component';
-import { UseJqueryComponent } from './use-jquery/use-jquery.component';
 import { BookshelvesComponent } from './book/bookshelves/bookshelves.component';
 import { BookReadComponent } from './book/book-read/book-read.component';
 
@@ -57,10 +56,6 @@ export const appRoutes=[
 		path: 'manage', 
 		loadChildren:'./manage/manage.module#ManageModule'
 	},	
-	{ 
-		path: 'jquery', 
-		component:UseJqueryComponent
-	},
 	{
 		path:'**',//fallback router must in the last
 		loadChildren:'./home/home.module#HomeModule'
