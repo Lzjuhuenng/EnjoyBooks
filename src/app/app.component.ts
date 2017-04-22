@@ -2,6 +2,7 @@ import { Component, HostListener, ElementRef, Renderer, ViewContainerRef } from 
 import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, RouterStateSnapshot } from '@angular/router';
 import { TranslateService } from 'ng2-translate';
 import { UserLoginService } from './user/user-login/user-login.service';
+import { UserLoginComponent } from './user/user-login/user-login.component';
 import { UserRegisterService } from './user/user-register/user-register.service';
 import { Account } from './user/model/account-model';
 import 'rxjs/add/operator/merge';
