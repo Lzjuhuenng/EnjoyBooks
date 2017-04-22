@@ -4,7 +4,6 @@ import { DebugElement } from '@angular/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HomeComponent }   from './home.component';
 import { SocialChannelComponent } from './social-channel/social-channel.component';
-import { SitestatComponent } from '../sitestat/sitestat.component';
 import { OnlineContactComponent } from './online-contact/online-contact.component';
 import { SharedModule } from '../shared/shared.module';
 
