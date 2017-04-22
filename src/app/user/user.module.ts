@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
-import { PostSharedModule } from '../shared/post.module';
 
 import { AlertModule, AccordionModule } from 'ng2-bootstrap';
 
@@ -23,7 +22,6 @@ import { userRoutes } from './user.routes';
     AlertModule,
     AccordionModule,
     SharedModule,
-    PostSharedModule,
     RouterModule.forChild(userRoutes)
   ],
   exports: [
