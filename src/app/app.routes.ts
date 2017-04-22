@@ -22,17 +22,6 @@ export const appRoutes=[
 		loadChildren:'./book/book.module#BookModule'
 	},
 	{
-		path:'home',
-		loadChildren:'./home/home.module#HomeModule'
-	},{
-		path:'posts',
-		loadChildren:'./home/home.module#HomeModule'
-	},
-	{
-		path:'post',
-		loadChildren:'./post/post.module#PostModule'
-	},
-	{
 		path:'login',
 		component:UserLoginComponent
 	},
@@ -51,9 +40,5 @@ export const appRoutes=[
 	{ 
 		path: 'manage', 
 		loadChildren:'./manage/manage.module#ManageModule'
-	},	
-	{
-		path:'**',//fallback router must in the last
-		loadChildren:'./home/home.module#HomeModule'
 	}
 ];
