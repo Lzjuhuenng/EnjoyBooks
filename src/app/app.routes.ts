@@ -36,9 +36,5 @@ export const appRoutes=[
 	{
 		path:'user',
 		loadChildren:'./user/user.module#UserModule'
-	},
-	{ 
-		path: 'manage', 
-		loadChildren:'./manage/manage.module#ManageModule'
 	}
 ];

@@ -94,6 +94,8 @@ export class BookShopComponent implements OnInit {
 		this.searchTextStream.next(this.searchText);
 	}
 	
+	
+	
 
 	private changeTypeId(typeId:number){
 		console.log("changeTypeId" + typeId);

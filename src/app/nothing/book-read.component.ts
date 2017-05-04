@@ -1,5 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component ,HostListener ,OnInit ,Renderer ,ElementRef ,EventEmitter} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -18,28 +17,32 @@ declare var EPUBJS : any ,ePubReader:any;
 })
 export class BookReadComponent implements OnInit {
 	
-  public reader :any;
+  public reader : any;
   public book : Book;
+  private bookMarkArr : Array<Bookmark> = new Array<Bookmark>();
+  // public bookmarkToggle = new EventEmitter<string>();
+  private markThere : boolean;
   private globalClickCallbackFn: Function;
-  private bookMarkArr = new Array<Bookmark>();
-  private existBookmark :boolean = false;
-
-  constructor(
-    private locations : Location,
-    public elementRef: ElementRef,
-    public renderer: Renderer,
+  private searchText : string ="";
+  private isSearchState : boolean = false;
+  private curEpubCfi : string;
+  constructor( 
     public router: Router,
     public activeRoute: ActivatedRoute,
+    public renderer: Renderer,
+    public elementRef: ElementRef,
 		//注入的服务要时全局单例的
     public bookReadService : BookReadService
 	) { }
 
 	ngOnInit() {
+    //监听点击 更新书签图标状态
     	this.globalClickCallbackFn = this.renderer.listen(this.elementRef.nativeElement, 'click', (event: any) => {
-        this.existBookmark = this.hasBookmark();
-			console.log("全局监听点击事件>" + event);
+			this.markThere = this.isBookmark();
+      //console.log(this.markThere);
+      console.log(this.reader);
+      console.log("全局监听点击事件>" + event);
 		});
-
 
   this.activeRoute.params.subscribe(
      params =>{
@@ -48,28 +51,12 @@ export class BookReadComponent implements OnInit {
     );
   	}
 
-    ngOnDestroy(){
-   
-      this.bookReadService.recordLastRead(this.book.shelfId,this.reader.book.getCurrentLocationCfi())
-      .subscribe(
-          data => console.log(data)
-      )
-        
-      console.log("ngOnDestroy");
-    }
-
-    // ngAfterViewChecked(){
-    //   console.log("ngAfterViewChecked")
-    //   this.bookReadService.recordLastRead(this.book.shelfId,this.reader.book.getCurrentLocationCfi());
-    // }
-
   public onReady(id:number){
     this.bookReadService
         .getBook(id)
         .subscribe(
           data => {
-            this.book = data,
-            console.log(this.book)
+            this.book = data,console.log(this.book)
             this.openBook(this.book);
         },
           error => console.error(error)
@@ -83,142 +70,116 @@ export class BookReadComponent implements OnInit {
     EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
     // fileStorage.filePath = EPUBJS.filePath;
 		console.log(EPUBJS);
-    this.reader = ePubReader(book.bookPath);
-     console.log(this.reader); 
-    if(book.lastRead!=null&&book.lastRead!=""){
-      console.log(this.reader);
-      this.reader.book.gotoCfi(book.lastRead);
-      this.bookMarkArr = book.bookmarkList;
-      this.createBookmarks();
     
-      }         
+    this.reader = ePubReader(book.bookURL);
+
+    console.log(this.reader);   
 	}	
 
-    private updateFonts(size:number){
-      var node = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0];
-      let body = node.children[1];
-      console.log(body);
-      let epubCfi = this.reader.book.getCurrentLocationCfi();
-      // body.setAttribute("style","font-size:50px;");
-
-      this.reader.settings.styles.fontSize=size+"%";
-      //this.reader.settings.styles.backgroundColor="red";
-      $('#main').addClass("redBack");
-      console.log(this.reader.book.locations.percentageFromCfi(epubCfi));
-      this.reader.book.displayChapter(epubCfi);
-
-
-      //this.reader.trigger("renderer:keydown",this.reader.book);
-      // console.log(EPUBJS.Layout.spreadWidth);
-
-      // let pages = EPUBJS.Layout.ReflowableSpreads.calculatePages();
-      // this.openBook(this.book);
-      // EPUBJS.Renderer.updatePages(pages);
-  }
-
-
-
-  private bookmarkToggle(){
-    let epubcfi = this.reader.book.getCurrentLocationCfi();
-    let index = this.indexMarkInBookmarkArr(epubcfi);
-    console.log(index);
-    if(index>=0){
+//  书签的图标的显示功能还未实现 （添加书签后更改样式）
+   public bookmarkToggle(){
+     let epubCfi = this.reader.book.getCurrentLocationCfi();
+     let bookmark = new Bookmark();
+     bookmark.epubcfi = epubCfi;
+     bookmark.id = 1111+this.bookMarkArr.length;
+     bookmark.title = this.getbookMarkTitle(epubCfi);
+     let index = this.indexMarInBookmarkArr(bookmark);
+     console.log(index);
+     if(index>=0){
       let bookmark = this.bookMarkArr.splice(index)[0];
-      this.bookReadService.delBookmark(bookmark.id).subscribe(
-        data =>{
-          this.reader.removeBookmark(bookmark);
-          console.log(data);
-          this.existBookmark = this.hasBookmark();
+      this.reader.removeBookmark(bookmark);
+      console.log(bookmark);
+      console.log("removeBookMark")
+     }else{
+      this.reader.addBookmark(bookmark);
+      this.bookMarkArr.push(bookmark);
+      console.log("addBookMark")
+     }
+
+     console.log(this.bookMarkArr);
+   
+    }
+
+    private indexMarInBookmarkArr(bookmark : Bookmark){
+      for(let i=0;i<this.bookMarkArr.length;i++){
+        if(bookmark.epubcfi.localeCompare(this.bookMarkArr[i].epubcfi)==0){
+          return i;
         }
-      )
-      
-    }else{
-      let bookmark = new Bookmark();
-      bookmark.epubcfi = epubcfi;
-      bookmark.title = this.getBookmarkTitle(epubcfi);
-      bookmark.shelfId = this.book.shelfId;
-      this.bookReadService.addBookmark(bookmark).subscribe(
-         data => { 
-          console.log(data);
-          bookmark.id = Number(data);
-          this.reader.addBookmark(bookmark);
-          this.bookMarkArr.push(bookmark);
-          console.log(this.bookMarkArr);
-          this.existBookmark = this.hasBookmark();
-          }
-      );
-    }
-
-  }
-
-  private indexMarkInBookmarkArr(epubcfi:string):any{
-    for(let i=0;i<this.bookMarkArr.length;i++){
-      if(epubcfi==this.bookMarkArr[i].epubcfi){
-        return i;
       }
+      return -1;
     }
-    return -1;
-  }
 
-  private hasBookmark():boolean{
-    console.log("hasBookmark");
-    let epubcfi = this.reader.book.getCurrentLocationCfi();
-    console.log(epubcfi);
-    for(let i=0;i<this.bookMarkArr.length;i++){
-      if(epubcfi == this.bookMarkArr[i].epubcfi){
-        console.log("true");
-        return true;
+    private isBookmark():boolean{
+      console.log("isBookmark")
+      let epubCfi = this.reader.book.getCurrentLocationCfi();
+      for(let i=0;i<this.bookMarkArr.length;i++){
+        if(this.bookMarkArr[i].epubcfi==epubCfi){
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  private getBookmarkTitle(epubcfi:string):string{
+	
+
+
+
+  private getbookMarkTitle(epubCli:string = ""):string{
     var node = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0];
-    var uri = epubcfi.slice(epubcfi.indexOf('!')+1,epubcfi.lastIndexOf('/'));
+    console.log(node);
+    var uri = epubCli.slice(epubCli.indexOf('!')+1,epubCli.lastIndexOf('/'));
     var paths = uri.split('/');
-    for(let i=0;i<paths.length;i++){
-      let nodeArr = node.children;
-      node = nodeArr[parseInt(paths[i])/2-1];
+    for(var i=0;i<paths.length;i++){
+        var nodeArr = node.children;
+        console.log(nodeArr);
+        node = nodeArr[parseInt(paths[i])/2-1];
     }
+    console.log(node);
 
     return node.innerHTML.slice(0,20);
   }
 
-  private createBookmarks(){
-    for(let i=0;i<this.bookMarkArr.length;i++){
-       this.reader.addBookmark(this.bookMarkArr[i])
-    }
-    this.hasBookmark();
+
+  private updateFonts(){
+    var node = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0];
+    let body = node.children[1];
+    console.log(body);
+    let epubCfi = this.reader.book.getCurrentLocationCfi();
+    // body.setAttribute("style","font-size:50px;");
+
+    this.reader.settings.styles.fontSize="120%";
+    console.log(this.reader.book.locations.percentageFromCfi(epubCfi));
+    this.reader.book.displayChapter(epubCfi);
+
+
+    //this.reader.trigger("renderer:keydown",this.reader.book);
+    // console.log(EPUBJS.Layout.spreadWidth);
+
+    // let pages = EPUBJS.Layout.ReflowableSpreads.calculatePages();
+    // this.openBook(this.book);
+    // EPUBJS.Renderer.updatePages(pages);
   }
 
-  private goBack():void{
-    this.locations.back();
-    this.locations.back();
-  }
 
-
-
-  //全文检索部分
   public searchContext(){
     this.clearSelection();//先清空一下上次高亮显示的内容；
     this.heightLight();
-
-    //console.log(this.reader);
-    
     var hi = this.heightLight;
     var searchText = $('#searchBox').val();
     // console.dir($("#view"));
-
-    this.reader.book.renderer.on('renderer:chapterDisplayed',function(msg){
-      hi();
-    alert("renderer:chapterDisplayed");
-    }
-    ,false);
-    //document.addEventListener('DOMAttrModified',function(){alert(1)},false);
-    //document.addEventListener('DOMNodeRemoved',function(){alert(1)},false);
+  this.reader.book.renderer.on('renderer:chapterDisplayed',function(msg){
+    hi();
+  alert("renderer:chapterDisplayed");
+}
+  ,false);
+//document.addEventListener('DOMAttrModified',function(){alert(1)},false);
+//document.addEventListener('DOMNodeRemoved',function(){alert(1)},false);
     
     //this.analysisHTML();
+
+   
     
+    //console.log("1111");        
+  
     //console.log(searchText);
     // var _searchTop = $('#searchBox').offset().top+30;
     //如果输入值为空 跳出方法
@@ -240,14 +201,14 @@ export class BookReadComponent implements OnInit {
 
       chapter.render().then(function(contents) {
       
-      //console.log(contents);
+      console.log(contents);
 
       let html = document.createElement('html');	
       html.innerHTML = contents;
 
       html.children;
 
-      //console.log(html.children[1]);
+      console.log(html.children[1]);
 
       let body = html.children[1];
 
@@ -318,69 +279,7 @@ export class BookReadComponent implements OnInit {
 
  
     
-  
-  }
-
-
-  public addSearchResult(result: any,reader:any){
-    console.log(result[0]);
-    // let base = chapter.cfiBase;
-    // let path = this.reader.book.currentChapter.epubcfi.pathTo(elem);
-    // let epubcfi = chapter.epubcfi.generateCfiFromElement(elem,base);
-    //console.log(epubcfi+"=================");
-    for(let i=0;i<result.length;i++){
-        reader.addSearch({
-        epubcfi:result[i].epubcfi,
-        title:result[i].title
-        })
-    }
-  }
-
-
-  private heightLight(){
-    var searchText = $('#searchBox').val();
-    if($.trim(searchText)=="" || $.trim(searchText)=='.'){
-      return;
-    }
-    var regExp = new RegExp(searchText, 'g');
-    let body = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0].children[1];
-    var content = $(body).text();
-    if (!regExp.test(content)) {
-      //不存在要检索的项
-      return;
-    }
-    $(body.children).each(function(){
-      var html = $(this).html();
-    
-      var newHtml = html.replace(regExp, '<span class="highlight" style="background: yellow; color: red;">'+searchText+'</span>');//将找到的关键字替换，加上highlight属性；
-      
-      $(this).html(newHtml);//更新；
-    });
-  }
-
-
-  private clearSelection(){
-     let body = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0].children[1];
-        $(body.children).each(function(){
-            //找到所有highlight属性的元素；
-            $(this).find('.highlight').each(function(){
-                $(this).replaceWith($(this).html());//将他们的属性去掉；
-            });
-        });
-        this.reader.removeSearch();
-    }
-}
-
-
-
-
-
-
-
-
-
-//单章检索
-/*  
+  /*  
     let body = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0].children[1];
     var content = $(body).text();
     //console.log(content);
@@ -433,3 +332,77 @@ export class BookReadComponent implements OnInit {
         this.addSearchResult(elemResult[i],titleResult[i],"");
     }
     */
+  }
+
+
+  public addSearchResult(result: any,reader:any){
+    console.log(result[0]);
+    // let base = chapter.cfiBase;
+    // let path = this.reader.book.currentChapter.epubcfi.pathTo(elem);
+    // let epubcfi = chapter.epubcfi.generateCfiFromElement(elem,base);
+    //console.log(epubcfi+"=================");
+    for(let i=0;i<result.length;i++){
+        reader.addSearch({
+        epubcfi:result[i].epubcfi,
+        title:result[i].title
+        })
+    }
+
+  }
+
+
+  private heightLight(){
+    var searchText = $('#searchBox').val();
+    var regExp = new RegExp(searchText, 'g');
+    let body = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0].children[1];
+    var content = $(body).text();
+    if (!regExp.test(content)) {
+      //不存在要检索的项
+      return;
+    }
+    $(body.children).each(function(){
+      var html = $(this).html();
+    
+      var newHtml = html.replace(regExp, '<span class="highlight" style="background: yellow; color: red;">'+searchText+'</span>');//将找到的关键字替换，加上highlight属性；
+      
+      $(this).html(newHtml);//更新；
+    });
+  }
+
+  private clearSelection(){
+     let body = document.getElementsByTagName('iframe')[0].contentWindow.document.children[0].children[1];
+        $(body.children).each(function(){
+            //找到所有highlight属性的元素；
+            $(this).find('.highlight').each(function(){
+                $(this).replaceWith($(this).html());//将他们的属性去掉；
+            });
+        });
+        this.reader.removeSearch();
+    }
+
+  private search(node:any){
+    if(node.textContent.indexOf(this.searchText.trim())){
+      let nodes = node.children;
+      for(let i=0;i<nodes.length;i++){
+        this.search(nodes[i]);
+      }
+    }
+  }
+  private analysisHTML(url:string=null){
+
+    //let html = this.bookReadService.getHtml(url);
+    let uri = this.reader.book.locations.spine[3].url;
+    let html;
+    //, this.store, this.credentials
+    let chapter = new EPUBJS.Chapter(this.reader.book.locations.spine[3],this.reader.book.store)
+    chapter.render(); 
+    console.dir(chapter);
+    this.bookReadService.getHtml(uri).subscribe(
+      data => html = data
+    );
+    console.log(uri);
+    //this.reader.book.contents.spine[3].href;
+    console.log(html);
+  }   
+}
+

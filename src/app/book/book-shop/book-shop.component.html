@@ -11,11 +11,11 @@
             <li class=""><a href="?tag=devops">DevOps</a></li>
             <li class=""><a href="?tag=language">开发语言</a></li>-->
             <li class="navbar-right">
-               <button class="btn btn-primary" id="search-btn">
+               <button class="btn btn-primary" id="search-btn" (click)="searchChanged($event)">
                  搜索
                </button>
             </li>
-            <li class="navbar-right">
+            <li class="navbar-right" >
               <form action="//www.runoob.com/" target="_blank">
                 <input class="form-control" value="搜索……"  autocomplete="off"  [(ngModel)]="searchText" (keyup)="searchChanged($event)" (change)="searchChanged($event)" id="searchText" name="searchText">
               </form>
